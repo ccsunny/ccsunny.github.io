@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="JavaScript学习总结【2】、JS基础 JS命名规范命名规范是很有必要的，可增强代码的可读性，一眼就能看懂要表达的意思，规范就是符合规则，使代码有利于后期维护，也能很大程度的提高开发效率。一个正常的网站有很多 JS 代码，如果在编写的过程中，不遵循某种规则，那么写到后面自己都看不懂自己写的什么，这是很麻烦的一件事，所以要在平时的练习过程中，养成良好的编写代码的习惯。  一般都采用匈牙利命名法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-05T11:52:08.818Z">
+<meta property="og:updated_time" content="2018-07-11T12:03:10.442Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript-summarize">
 <meta name="twitter:description" content="JavaScript学习总结【2】、JS基础 JS命名规范命名规范是很有必要的，可增强代码的可读性，一眼就能看懂要表达的意思，规范就是符合规则，使代码有利于后期维护，也能很大程度的提高开发效率。一个正常的网站有很多 JS 代码，如果在编写的过程中，不遵循某种规则，那么写到后面自己都看不懂自己写的什么，这是很麻烦的一件事，所以要在平时的练习过程中，养成良好的编写代码的习惯。  一般都采用匈牙利命名法">
@@ -220,7 +220,7 @@
 </ul>
 <ol>
 <li>&amp;&amp;：并且。在数学中我们将 b 大于 a、b 又小于 c 表示为：a&lt;b&lt;c，但是在 JS 中要用 &amp;&amp; 表示：b&gt;a &amp;&amp; b&lt;c。两个条件必须同时满足，则返回 ture，有一个条件不满足，则返回 false。实例：判断一个数字是否为两位数：a&gt;9 &amp;&amp; a&lt;100，假设 a=50，则返回：ture。</li>
-<li>||：或。当两个条件中，有任一个条件满足，逻辑或的运算结果就为真。实例：a=5，b=10，判断c=a&lt;b || a==b，c的值为：ture。</li>
+<li>||：或。当两个条件中，有任一个条件满足，逻辑或的运算结果就为真。实例：a=5，b=10，判断c=a&lt;b || a == b ，c的值为：ture。</li>
 <li>!：否。也叫逻辑非操作符，是非颠倒，好比小明买了一本 JS 书籍，小白说：是乌龟书；小红说：是犀牛书。小明说：小白说的不是真话，小红说的不是假话。那么是小红说对了，小明买的书是犀牛书。实例：a=10 b=5，判断c =! (a&gt;b)，c 的值为：false。 </li>
 </ol>
 <h3 id="三元运算符："><a href="#三元运算符：" class="headerlink" title="三元运算符："></a>三元运算符：</h3><ul>
@@ -349,9 +349,7 @@
 </ul>
 <h2 id="JS转义字符"><a href="#JS转义字符" class="headerlink" title="JS转义字符"></a>JS转义字符</h2><ul>
 <li>在 JS 中字符串通常用单引号或双引号包含起来，比如：var txt = “谁看到”小明”今天来上课了吗？”; 所以这个例子会解析错误，从 “谁看到” 被截断，浏览器报错提示：语法错误，而且这是很严重的错误，错误到代码将被终止，后面的代码无法执行。其实这个例子还是很好解决的，我们可以将其用单引号括起来，再给小明加上双引号，OK，跟原来要表达的一样，但是如果我们需要换行呢？这时候就需要用到转义字符，转义字符在 JS 中应用十分广泛，尤其是在正则表达式 (RegExp) 中，因此上面的代码应该写为： var txt = “谁看到 \”小明 \”今天来上课了吗？”;  需要换行则写为：var txt = “谁看到 \”小明 \” \n 今天来上课了吗？”; 。</li>
-<li><p><strong>反斜杠()是一个转义字符，转义字符可用于将特殊字符转换为字符串字符，可以用于转义撇号、引号、换行等其他特殊字符，在编写代码时需要注意特殊字符问题，很多运行时出现的问题都是因为特殊字符而引起的，由于反斜杠本身被用作转义符，因此不能在代码中只键入一个 \ ，如果需要显示一个反斜杠，必须一次键入两个 \ 。下面是一些常用的转义字符：</strong></p>
-<p>  |转义代码|    输出|<br>  | ——–   | —–:  |<br>  |  \‘ |    单引号|<br>  | \“    |双引号|<br>  | \\    |反斜杠|<br>  | \n    |换行符|<br>  | \r    |回车符|<br>  | \b    |退格符|<br>  | \t    |tab制表符|<br>  | \f|    换页符|</p>
-</li>
+<li><strong>反斜杠()是一个转义字符，转义字符可用于将特殊字符转换为字符串字符，可以用于转义撇号、引号、换行等其他特殊字符，在编写代码时需要注意特殊字符问题，很多运行时出现的问题都是因为特殊字符而引起的，由于反斜杠本身被用作转义符，因此不能在代码中只键入一个 \ ，如果需要显示一个反斜杠，必须一次键入两个 \ 。下面是一些常用的转义字符：</strong><br>|转义代码|    输出|<br>| ——–   | —–:  |<br>|  \’ |    单引号|<br>| \“    |双引号|<br>| \    |反斜杠|<br>| \n    |换行符|<br>| \r    |回车符|<br>| \b    |退格符|<br>| \t    |tab制表符|<br>| \f|    换页符|</li>
 </ul>
 <hr>
 <h5 id="👏👏👏小编有话讲"><a href="#👏👏👏小编有话讲" class="headerlink" title="👏👏👏小编有话讲:"></a>👏👏👏小编有话讲:</h5><pre><code>以上小编的总结如有异议,欢迎指导!!!😃💖
@@ -368,19 +366,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/07/05/JavaScript-summarize/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          (no title)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/07/01/cecilia/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/07/01/Cmd-Markdown/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">cecilia</div>
+      <div class="article-nav-title">Cmd-Markdown</div>
     </a>
   
 </nav>
@@ -417,15 +406,11 @@
       <ul>
         
           <li>
-            <a href="/2018/07/05/JavaScript-summarize/">(no title)</a>
-          </li>
-        
-          <li>
             <a href="/2018/07/05/JavaScript-summarize/">JavaScript-summarize</a>
           </li>
         
           <li>
-            <a href="/2018/07/01/cecilia/">cecilia</a>
+            <a href="/2018/07/01/Cmd-Markdown/">Cmd-Markdown</a>
           </li>
         
           <li>
