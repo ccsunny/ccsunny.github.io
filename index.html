@@ -62,6 +62,69 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Vue项目的适配" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/10/Vue项目的适配/" class="article-date">
+  <time datetime="2019-01-10T07:16:05.000Z" itemprop="datePublished">2019-01-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/10/Vue项目的适配/">Vue项目的适配</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Vue中使用vw实现移动端适配👍"><a href="#Vue中使用vw实现移动端适配👍" class="headerlink" title="Vue中使用vw实现移动端适配👍"></a>Vue中使用vw实现移动端适配👍</h1><hr>
+<ol>
+<li>我们在vue移动端项目中的适配一般都采用rem，但是rem也不是能兼容所有的终端。随着viewport单位越来越受到众多浏览器的支持，下面简单介绍怎么实现vw的兼容问题，用vw代替rem.</li>
+</ol>
+<ul>
+<li>当我们采用vue-cli脚手架搭建完项目，安装所有依赖包之后，用npm run dev启动后，在根目录有一个 .postcssrc.js 文件，文件结构如下：  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    &quot;plugins&quot;: &#123;</span><br><span class="line">        &quot;autoprefixer&quot;: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="2">
+<li>然后我们安装: <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i postcss-aspect-ratio-mini postcss-px-to-viewport postcss-write-svg postcss-cssnext postcss-viewport-units cssnano --save</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li>安装成功之后，在项目根目录下的package.json文件中，可以看到新安装的依赖包.</li>
+</ul>
+<ol start="3">
+<li>接下来在.postcssrc.js文件对新安装的PostCSS插件进行配置： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    &quot;plugins&quot;: &#123;</span><br><span class="line">        &quot;postcss-import&quot;: &#123;&#125;,</span><br><span class="line">        &quot;postcss-url&quot;: &#123;&#125;,</span><br><span class="line">        &quot;postcss-aspect-ratio-mini&quot;: &#123;&#125;,</span><br><span class="line">        &quot;postcss-write-svg&quot;: &#123;</span><br><span class="line">            utf8: false</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;postcss-cssnext&quot;: &#123;&#125;,</span><br><span class="line">        &quot;postcss-px-to-viewport&quot;: &#123;</span><br><span class="line">            viewportWidth: 750,   // 视窗的宽度，对应的是我们设计稿的宽度，一般是750</span><br><span class="line">            viewportHeight: 1334, // 视窗的高度，根据750设备的宽度来指定，一般指定1334，也可以不配置</span><br><span class="line">            unitPrecision: 3,     // 指定`px`转换为视窗单位值的小数位数</span><br><span class="line">            viewportUnit: &quot;vw&quot;,   //指定需要转换成的视窗单位，建议使用vw</span><br><span class="line">            selectorBlackList: [&apos;.ignore&apos;,&apos;.hairlines&apos;],   // 指定不转换为视窗单位类，可以自定义，可以无限添加,建议定义一至两个通用的类名</span><br><span class="line">            minPixelValue: 1,     // 小于或等于&apos;1px&apos;不转换为视窗单位，你也可以设置为你想要的值</span><br><span class="line">            mediaQuery: false     // 允许在媒体中转换&apos;px&apos;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;postcss-viewport-units&quot;: &#123;&#125;,</span><br><span class="line">        &quot;cssnano&quot;: &#123;</span><br><span class="line">            preset: &quot;advanced&quot;,</span><br><span class="line">            autoprefixer: false,</span><br><span class="line">            &quot;postcss-zindex&quot;: false</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ul>
+<li><p>cssnano：主要用来压缩和清理CSS代码。在Webpack中，cssnano和css-loader捆绑在一起，所以不需要自己加载它。在cssnano的配置中，使用了preset: “advanced”，所以我们需要另外安装：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i cssnano-preset-advanced --save-dev</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;cssnano&quot;: &#123;</span><br><span class="line">    &quot;autoprefixer&quot;: false,</span><br><span class="line">    &quot;postcss-zindex&quot;: false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>注意</strong>: 上面的代码把autoprefixer和postcss-zindex禁掉了。前者是有重复调用，只要启用了这个插件，z-index的值就会重置为1。千万记得将postcss-zindex设置为false。</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/01/10/Vue项目的适配/" data-id="cjqqbdhl30001gov70g1t13mm" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Flex" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/05/Flex/" class="article-date">
@@ -282,7 +345,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/05/Flex/" data-id="cjkg9cxen0002jsv7017mf8nb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/05/Flex/" data-id="cjqqbdhky0000gov7squnkcqd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -327,7 +390,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/27/GitHub/" data-id="cjkg9cxep0003jsv7553e0stb" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/27/GitHub/" data-id="cjqqbdhl60002gov7tb5rrj5o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -955,7 +1018,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/11/node-js/" data-id="cjkg9cxex0005jsv7jscbobmz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/11/node-js/" data-id="cjqqbdhlf0006gov7kb3b6bxa" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1258,7 +1321,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/05/JavaScript-summarize/" data-id="cjkg9cxex0004jsv79rhulozt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/05/JavaScript-summarize/" data-id="cjqqbdhl70003gov75m38y4st" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1378,7 +1441,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/01/Cmd-Markdown/" data-id="cjkg9cxel0001jsv7lzm9yftt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/01/Cmd-Markdown/" data-id="cjqqbdhl80004gov72mgx0sla" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1423,7 +1486,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/07/01/hello-world/" data-id="cjkg9cxeg0000jsv7ec1mc71d" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/07/01/hello-world/" data-id="cjqqbdhla0005gov7co5jeyf4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1451,7 +1514,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li></ul>
     </div>
   </div>
 
@@ -1462,6 +1525,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/01/10/Vue项目的适配/">Vue项目的适配</a>
+          </li>
         
           <li>
             <a href="/2018/08/05/Flex/">Flex</a>
@@ -1479,10 +1546,6 @@
             <a href="/2018/07/05/JavaScript-summarize/">JavaScript-summarize</a>
           </li>
         
-          <li>
-            <a href="/2018/07/01/Cmd-Markdown/">Cmd-Markdown</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -1495,7 +1558,7 @@
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2018 John Doe<br>
+      &copy; 2019 John Doe<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
